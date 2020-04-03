@@ -8,4 +8,4 @@ app.get('/', (req, res) => res.send("Server root"))
 
 app.listen(port, () => console.log(`Running at localhost:${port}`))
 
-//localhost:3000
+// http://localhost:3000
