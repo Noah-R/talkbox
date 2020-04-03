@@ -3,13 +3,14 @@ what this site will be
 two buttons
     talk
         user enter a message, and an email
-        data/metadata entered into database
+        data/metadata/unique key entered into database
     listen
         display randomly selected entry
             if entry is a response, show single parent entry
         allow user to enter a response and email
-        data/metadata/parent reference into database
+        data/metadata/unique key/parent reference into database
+        elements of listen page either need to
+            invoke an object form of elements from talk page
+            redirect client-side to talk page
     debug
         various shit to practice database access
-
-use react

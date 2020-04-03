@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <title>talk</title>
+        <script>
+            function submit(){
+                var email=document.getElementById("email").value;
+                var message=document.getElementById("message").value;
+                var time=new Date().getTime();
+                var parent=0;
+                //this part is suppoed to send a post request with all the stuff to be put into a database entry
+                let request = new XMLHttpRequest();
+                request.setRequestHeader("email", email);
+                request.setRequestHeader("message", message);
+                request.setRequestHeader("time", time);
+                request.setRequestHeader("parent", parent);
+                request.open("POST", "127.0.0.1:3030/");
+                request.send();
+                //end spaghetti section
+                document.getElementById("middler").innerHTML="<p>submitted</p>";
+            }
+        </script>
+    </head>
+    <body>
+        <div id="middler">
+            <p>email</p>
+            <input id="email" type="text"></input>
+            <p>message</p>
+            <input id="message" type="text"></input>
+            <input type="submit" onclick="submit()"></input>
+        </div>
+    </body>
+</html>
