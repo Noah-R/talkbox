@@ -10,11 +10,12 @@
                 var parent=0;
                 //this part is suppoed to send a post request with all the stuff to be put into a database entry
                 let request = new XMLHttpRequest();
+                request.open("POST", "http://localhost:3000/");
+                request.setRequestHeader("id", time%2000000000);
                 request.setRequestHeader("email", email);
                 request.setRequestHeader("message", message);
                 request.setRequestHeader("time", time);
                 request.setRequestHeader("parent", parent);
-                request.open("POST", "127.0.0.1:3030/");
                 request.send();
                 //end spaghetti section
                 document.getElementById("middler").innerHTML="<p>submitted</p>";

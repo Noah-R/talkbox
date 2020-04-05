@@ -14,3 +14,10 @@ two buttons
             redirect client-side to talk page
     debug
         various shit to practice database access
+
+installed
+    express
+    mysql
+might need
+    body-parser
+    cors

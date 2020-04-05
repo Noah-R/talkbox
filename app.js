@@ -1,11 +1,33 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const mysql = require('mysql');
+const app = express();
+var connection = mysql.createConnection({
+    host : 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'mydb'
+});
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
-app.get('/', (req, res) => res.send("/talk to talk, /listen to listen"))
+app.post('/*', function(req, res){
+    console.log('post received');
 
-app.listen(port, () => console.log(`Running at localhost:${port}`))
+    connection.connect(function(err){
+        if (err) throw err;
+        console.log('Connected');
+    })
+//(id, email, message, time, parent)
+    connection.query('INSERT INTO messages VALUES ('+req.header('id')+', \"'+req.header('email')+'\", \"'+req.header('message')+'\", '+req.header('time')+', '+req.header('parent')+');', function(err){
+        if (err) throw err;
+    })
+
+    connection.end();
+
+})
+
+app.get('/', (req, res) => res.send("/talk to talk, /listen to listen"));
+
+app.listen(3000, () => console.log(`Running at localhost:3000`));
 
 // http://localhost:3000/talk.html
