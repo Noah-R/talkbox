@@ -3,12 +3,10 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <title>talk</title>
         <script>
-            function submit(){
+            function submit(parent=0){
                 var email=document.getElementById("email").value;
                 var message=document.getElementById("message").value;
                 var time=new Date().getTime();
-                var parent=0;
-                //this part is suppoed to send a post request with all the stuff to be put into a database entry
                 let request = new XMLHttpRequest();
                 request.open("POST", "http://localhost:3000/");
                 request.setRequestHeader("id", time%2000000000);
@@ -17,18 +15,50 @@
                 request.setRequestHeader("time", time);
                 request.setRequestHeader("parent", parent);
                 request.send();
-                //end spaghetti section
-                document.getElementById("middler").innerHTML="<p>submitted</p>";
+                //todo: send email response if parent>0
+                reset();
+            }
+            function talk(){
+                document.getElementById("middler").innerHTML=`
+                <p>email</p>
+                <input id="email" type="text"></input>
+                <p>message</p>
+                <input id="message" type="text"></input>
+                <input type="submit" onclick="submit()"></input>
+                <input type="submit" onclick="reset()" value="Reset"></input>
+                `;
+            }
+            function listen(){
+                let request = new XMLHttpRequest();
+                var message="";
+                request.onreadystatechange = function() {
+                    if(request.response.length>0){
+                        obj=JSON.parse(request.response);
+                        document.getElementById("middler").innerHTML="<p>Confucius say \""+obj.message+"\"</p>"+`
+                        <p>email</p>
+                        <input id="email" type="text"></input>
+                        <p>message</p>
+                        <input id="message" type="text"></input>
+                        <input type="submit" onclick="submit(`+obj.id+`)"></input>
+                        <input type="submit" onclick="reset()" value="Reset"></input>
+                        `;
+                    }
+                };
+                request.open("GET", "http://localhost:3000/");
+                request.send();
+            }
+            function reset(){
+                document.getElementById("middler").innerHTML=`
+                <input type="submit" onclick="talk()" value="talk"></input>
+                <input type="submit" onclick="listen()" value="listen"></input>
+                `
             }
         </script>
     </head>
     <body>
         <div id="middler">
-            <p>email</p>
-            <input id="email" type="text"></input>
-            <p>message</p>
-            <input id="message" type="text"></input>
-            <input type="submit" onclick="submit()"></input>
+            <input type="submit" onclick="talk()" value="talk"></input>
+            <input type="submit" onclick="listen()" value="listen"></input>
         </div>
     </body>
 </html>
