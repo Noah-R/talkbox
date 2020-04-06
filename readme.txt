@@ -13,7 +13,7 @@ two buttons
             invoke an object form of elements from talk page
             redirect client-side to talk page
     debug
-        various shit to practice database access
+        various to practice database access
 
 installed
     express

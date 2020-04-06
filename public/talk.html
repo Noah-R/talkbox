@@ -34,6 +34,9 @@
                 request.onreadystatechange = function() {
                     if(request.response.length>0){
                         obj=JSON.parse(request.response);
+                        if(obj.parentmessage!=null){
+                            document.getElementById("topper").innerHTML="<p>In response to \""+obj.parentmessage+"\"</p>";
+                        }
                         document.getElementById("middler").innerHTML="<p>Confucius say \""+obj.message+"\"</p>"+`
                         <p>email</p>
                         <input id="email" type="text"></input>
@@ -48,6 +51,7 @@
                 request.send();
             }
             function reset(){
+                document.getElementById("topper").innerHTML="";
                 document.getElementById("middler").innerHTML=`
                 <input type="submit" onclick="talk()" value="talk"></input>
                 <input type="submit" onclick="listen()" value="listen"></input>
@@ -56,6 +60,8 @@
         </script>
     </head>
     <body>
+        <div id="topper">
+        </div>
         <div id="middler">
             <input type="submit" onclick="talk()" value="talk"></input>
             <input type="submit" onclick="listen()" value="listen"></input>
