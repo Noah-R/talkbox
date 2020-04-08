@@ -36,6 +36,10 @@ app.get('/*', (req, res) => {
     })
 });
 
-app.listen(3000, () => console.log(`Running at localhost:3000`));
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, () => console.log(`Running at localhost:`+port));
 
 // http://localhost:3000/talk.html
