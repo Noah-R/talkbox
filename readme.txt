@@ -15,6 +15,10 @@ two buttons
     debug
         various to practice database access
 
+todo
+    add react
+    narrow routing
+
 installed
     express
     mysql
